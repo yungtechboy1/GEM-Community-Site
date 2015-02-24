@@ -18,7 +18,7 @@ if(!loggedin()){
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <!-- /meta -->
 
-    <title>Sublime - Web Application Admin Dashboard</title>
+    <title>GEM Community - <?php echo $nickname ?></title>
 
     <!-- page level plugin styles -->
     <!-- /page level plugin styles -->
@@ -201,7 +201,7 @@ if(!loggedin()){
 
                 <li class="off-right">
                     <a href="javascript:;" data-toggle="dropdown">
-                        <img src="img/faceless.jpg" class="header-avatar img-circle" alt="user" title="user">
+                        <img src="<?php echo $profile_pic; ?>" class="header-avatar img-circle" style="width:32px;height:32px;" alt="user" title="user">
                         <span class="hidden-xs ml10"><?php echo $nickname ?></span>
                         <i class="ti-angle-down ti-caret hidden-xs"></i>
                     </a>

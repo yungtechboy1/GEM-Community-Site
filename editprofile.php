@@ -39,7 +39,69 @@ if (isset($_POST['submit']) ){
         $new_twitter = $_POST['twitter'];
         mysql_query("UPDATE profile SET twitter='$new_twitter' WHERE id='$my_id'");
     }
- ?> <meta http-equiv="refresh" content="0; url=http://gemmovement.com/social/profile.php" />
+	if ($_FILES["files"]['size'] !== 0){
+		if (!file_exists("users")){
+		mkdir("users", 0777);
+		chmod("users", 0777);
+		}
+		if(!file_exists("users/".$username)){
+		mkdir("users/$username", 0777, true);
+		chmod("users/$username", 0777);
+		}
+		if(!file_exists("users/".$username."/photos/")){
+		mkdir("users/".$username."/photos", 0777, true);
+		chmod("users/".$username."/photos", 0777);
+		}
+		$uploadOk = 1;
+		$target_dir = "users/".$username."/photos/";
+		$imagename1 = str_split($usename,3);
+		$imagename = $imagename1[0].rand(0,999999).strtotime('now');
+		$target_file = $target_dir . $imagename;
+		$imageFileType = pathinfo($_FILES['files']['name'],PATHINFO_EXTENSION);
+		ECHO $target_file.".$imageFileType" . "--" . $_FILES["files"]["tmp_name"];
+		// Check if image file is a actual image or fake image
+		$check = getimagesize($_FILES['files']['tmp_name']);
+		
+		// Check if file already exists
+		if (file_exists($target_file)) {
+			$error = "Sorry, file already exists.";
+			$uploadOk = 0;
+		}
+		// Check file size
+		if ($_FILES["files"]["size"] > 50000000) {//50 MBs
+			$error = "Sorry, your file is too large.";
+			$uploadOk = 0;
+		}
+		// Allow certain file formats
+		if($imageFileType !== "jpg" && $imageFileType !== "png" && $imageFileType !== "jpeg"
+		&& $imageFileType !== "gif" ) {
+			$error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+			$uploadOk = 0;
+		}
+		
+		$bb = explode('/',$_FILES['files']['type']);
+		$b = $bb[1];
+		
+		
+		if($check !== false && $uploadOk == 1) {
+		echo "<br>".$_FILES["files"]["tmp_name"].".".$b . "-----" . $target_file.".".$imageFileType;
+			if (move_uploaded_file($_FILES["files"]["tmp_name"], $target_file.".".$imageFileType)) {
+				$URLL = "/social/".$target_file.".".$imageFileType;
+				//echo "##".$my_id;
+				mysql_query("UPDATE profile SET picture='$URLL' WHERE id='$my_id'");
+				chmod($target_file.".".$imageFileType, 0777);
+			} else {
+				//echo "Sorry, there was an error uploading your file.";
+				echo "File is not an image or their was an error!";
+				echo "Error: $error";
+			}
+		} else {
+			echo "File is not an image or their was an error!";
+			echo "Error: $error";
+			$uploadOk = 0;
+		}
+	}
+ ?> <!--<meta http-equiv="refresh" content="0; url=http://gemmovement.com/social/profile.php" />-->
 				<?php   
 } ?>
 
@@ -62,12 +124,13 @@ if (isset($_POST['submit']) ){
                                 <section class="panel">
                                     <header class="panel-heading">Edit Profile</header>
                                     <div class="panel-body">
-                                        <form class="form-horizontal" role="form" method="post" action="#">
+                                        <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action="#">
                                             
-                                            <div class="form-group"> 
-                                                <label class="col-sm-2 control-label">Nickname</label>
+                                             <div class="form-group"> 
+                                                <label class="col-sm-2 control-label">Profile Picture</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" name="nickname" placeholder="<?php echo $nickname ?>">
+													<img src="<?php echo $profile_pic;?>" style="width: 100px;height:100px;" class="//form-control img-circle"/>
+                                                    <input type="file" name="files" class="form-control" name="photo">
                                                 </div>
                                             </div>
                                             
@@ -124,6 +187,49 @@ if (isset($_POST['submit']) ){
                                                 <label class="col-sm-2 control-label">Twitter</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" name="twitter" placeholder="<?php echo $user_twitter ?>">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group"> 
+                                                <label class="col-sm-2 control-label">My Hero</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" name="hero" placeholder="">
+                                                </div>
+                                            </div>
+                                            
+                                            <header class="panel-heading">Settings</header><br>
+                                            
+                                             <div class="form-group"> 
+                                                <label class="col-sm-2 control-label">View Profile Settings</label>
+                                                <div class="col-sm-10">
+                                                    <select>
+                                                        <option value="Everyone">Everyone</option>
+                                                        <option value="Friends and Followers Only">Friends and Followers Only</option>
+                                                        <option value="Friends Only">Friends Only</option>
+                                                        <option value="I choose">I Choose</option>
+                                                        <option value="No One">No One</option>                                              
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group"> 
+                                                <label class="col-sm-2 control-label">Wall Posts</label>
+                                                <div class="col-sm-10">
+                                                    <select>
+                                                        <option value="Only Me">Only Me</option>
+                                                        <option value="Friends Only">Friends Only</option>
+                                                        <option value="Everyone">Everyone</option>                                              
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group"> 
+                                                <label class="col-sm-2 control-label">Show Liked Posts on Wall</label>
+                                                <div class="col-sm-10">
+                                                    <select>
+                                                        <option value="On">On</option>
+                                                        <option value="Off">Off</option>                                           
+                                                    </select>
                                                 </div>
                                             </div>
                                                 
