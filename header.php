@@ -49,7 +49,7 @@ if(!loggedin()){
 <!-- body -->
 
 <body>
-    <div class="app small-menu">
+    <div class="app">
         <!-- top header -->
         <header class="header header-fixed navbar">
 
@@ -59,10 +59,10 @@ if(!loggedin()){
                 <!-- /toggle offscreen menu -->
 
                 <!-- logo -->
-                <a href="community.html" class="navbar-brand">
+                <a href="profile.php" class="navbar-brand">
                     <img src="img/gem-community.png" alt="">
                     <span class="heading-font">
-                        Gem Community
+                        GEM Community
                     </span>
                 </a>
                 <!-- /logo -->
@@ -207,7 +207,7 @@ if(!loggedin()){
                     </a>
                     <ul class="dropdown-menu animated fadeInRight">
                         <li>
-                            <a href="javascript:;">Settings</a>
+                            <a href="editprofile.php">Settings</a>
                         </li>
                         <li>
                             <a href="javascript:;">Upgrade</a>

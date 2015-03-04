@@ -40,15 +40,17 @@
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                
                                                 <div class="col-xs-12 col-sm-4 text-center">
                                                     <figure>
                                                         <img src="<?php echo $profile_pic; ?>" alt="" class="avatar avatar-lg img-circle avatar-bordered">
-                                                        <div class="small mt10">Account Usage</div>
+                                                        
+                                                        <!--<div class="small mt10">Account Usage</div>
                                                         <div class="progress progress-xs mt5 mb5">
                                                             <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
                                                             </div>
                                                         </div>
-                                                        <small>234 / 879</small>
+                                                        <small>234 / 879</small>-->
                                                     </figure>
                                                 </div>
                                             </div>
