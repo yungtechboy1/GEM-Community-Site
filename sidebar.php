@@ -42,7 +42,7 @@
 					
 					<!-- Inbox -->
 						<li>
-                            <a href="#">
+                            <a href="mail.php">
 							<i class="fa fa-inbox"> </i>
 								<span>Inbox</span> 
                             </a>

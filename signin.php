@@ -12,7 +12,7 @@ if(isset($_POST['submit'])){
             $run = mysql_fetch_array($check_login);
             $id = $run['id'];
                 $_SESSION['id'] = $id;
-            ?> <meta http-equiv="refresh" content="0; url=http://gemmovement.com/social/logintest.php" />
+            ?> <meta http-equiv="refresh" content="0; url=http://gemmovement.com/social/profile.php" />
 				<?php
                     
         } else{
@@ -67,9 +67,16 @@ if(isset($_POST['submit'])){
     <div class="cover" style="background-image: url(img/cover3.jpg)"></div>
 
     <div class="overlay bg-primary"></div>
+    
+    
 
     <div class="center-wrapper">
         <div class="center-content">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                    <h2 class="text-center">GEM Social</h2>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                     <section class="panel bg-white no-b">
