@@ -16,15 +16,11 @@ if(!loggedin()){
     <meta charset="utf-8">
     <meta name="description" content="Flat, Clean, Responsive, application admin template built with bootstrap 3">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
-    <meta name="theme-color" content="#1582dc">
-    <link rel="icon" href="img/favicon.ico">
-
     <!-- /meta -->
 
     <title>GEM Community - <?php echo $nickname ?></title>
 
     <!-- page level plugin styles -->
-    <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
     <!-- /page level plugin styles -->
 
     <!-- core styles -->
@@ -146,7 +142,7 @@ if(!loggedin()){
                         </div>
                     </a>
                     <div class="dropdown-menu animated fadeInLeft">
-                        <div class="panel panel-default no-m">
+                        <div class="panel bordered no-m">
                             <div class="panel-heading small"><b>Notifications</b>
                             </div>
                             <ul class="list-group">
@@ -230,7 +226,6 @@ if(!loggedin()){
                         </li>
                     </ul>
                 </li>
-                
             </ul>
         </header>
         <!-- /top header -->

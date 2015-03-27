@@ -21,8 +21,8 @@
         $facebook = $_POST['facebook'];
         $twitter = $_POST['twitter'];
 		
-		mysql_query("INSERT INTO profile(username, password, email, nickname, dob, city, zip, facebook, twitter) VALUES('$username', '$password', '$email', '$nickname', '$dob', '$city', '$zip', '$facebook', '$twitter')");
-		echo ("Congrads It Works!");
+		mysql_query("INSERT INTO profile(username, password, email, nickname, dob, city, zip, facebook, twitter,picture) VALUES('$username', '$password', '$email', '$nickname', '$dob', '$city', '$zip', '$facebook', '$twitter', '/social/img/faceless.jpg')");
+		header('Location: confirm.php');
 		}else{
 		echo ("YOUR PASSWORDS DONT MATCH!!!");
 		}
@@ -53,7 +53,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <!-- /meta -->
 
-    <title>Sublime - Web Application Admin Dashboard</title>
+    <title> GEM Sign-Up</title>
 
     <!-- page level plugin styles -->
     <link rel="stylesheet" href="plugins/stepy/jquery.stepy.css">
