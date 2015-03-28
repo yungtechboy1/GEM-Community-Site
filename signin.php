@@ -1,12 +1,15 @@
 <?php include "include/connect.php";
       include "include/loggedin.php";
-
+$error == false;
 if(isset($_POST['submit'])){
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
-    if(empty($username) or empty($password)){
-        echo ("<script>alert('Fields Empty')</script>");   
+    $password = $_POST['password'];
+    if(empty($username) || empty($password) || $username == "" || $password == ""){
+		$error = true;
+		$msg[0] = "Please fill out all feilds!";
+		$msg[1] = "Missing Information";
     } else{
+		$password = md5($password);
         $check_login = mysql_query("SELECT id FROM profile WHERE username='$username' AND password='$password'");
         if(mysql_num_rows($check_login) == 1){
             $run = mysql_fetch_array($check_login);
@@ -16,7 +19,9 @@ if(isset($_POST['submit'])){
 				<?php
                     
         } else{
-            echo ("<script>alert('Username or Password Invalid!)</script");
+		$error = true;
+		$msg[0] = "Please check the Username and Password provided!";
+		$msg[1] = "Login Failed";
         
     }
     }
@@ -24,7 +29,6 @@ if(isset($_POST['submit'])){
 }
 ?>
 
-<!doctype html>
 <html class="signin no-js" lang="">
 
 <head>
@@ -34,10 +38,10 @@ if(isset($_POST['submit'])){
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <!-- /meta -->
 
-    <title>Sublime - Web Application Admin Dashboard</title>
+    <title>GEM</title>
 
-    <!-- page level plugin styles -->
-    <!-- /page level plugin styles -->
+
+	<link rel="stylesheet" href="plugins/toastr/toastr.css">
 
     <!-- core styles -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -64,7 +68,7 @@ if(isset($_POST['submit'])){
 
 <body class="bg-primary">
 
-    <div class="cover" style="background-image: url(img/cover3.jpg)"></div>
+    <div class="cover" style="background-image: url(img/cover1.jpg)"></div>
 
     <div class="overlay bg-primary"></div>
     
@@ -111,6 +115,43 @@ if(isset($_POST['submit'])){
         
         </div>
     </div>
+	
+
+	<script src="plugins/jquery-1.11.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="plugins/jquery.slimscroll.min.js"></script>
+    <script src="plugins/jquery.easing.min.js"></script>
+    <script src="plugins/appear/jquery.appear.js"></script>
+    <script src="plugins/jquery.placeholder.js"></script>
+    <!-- /core scripts -->
+
+    <!-- page level scripts -->
+    <!-- /page level scripts -->
+
+    <!-- template scripts --><!--
+    <script src="js/offscreen.js"></script>
+    <script src="js/main.js"></script>-->
+
+	 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" ></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<!--<script src="plugins/toastr/toastr.min.js"></script>-->
+	<?php if ($error == true){?>
+				<script>
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "positionClass": "toast-top-full-width",
+  "showDuration": "500",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+toastr["error"]("<?php echo $msg[0]; ?>", "<?php echo $msg[1]; ?>");</script>
+	<?php }?>
     <script type="text/javascript">
         var el = document.getElementById("year"),
             year = (new Date().getFullYear());
