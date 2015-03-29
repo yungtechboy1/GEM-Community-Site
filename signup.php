@@ -1,16 +1,69 @@
 <?php include "include/connect.php"; 
-	if (isset($_POST['submit']) ){
-	if (isset($_POST['username'])){
-	if (isset($_POST['password'])){
-	if (isset($_POST['email'])){
-	if (isset($_POST['accept'])){
-    if (isset($_POST['nickname'])){
-    if (isset($_POST['dob'])){
-    if (isset($_POST['city'])){
-    if (isset($_POST['zip'])){
-    if (isset($_POST['facebook'])){
-    if (isset($_POST['twitter'])){
-		if ($_POST['password'] == $_POST['cpassword']){
+	$error = false;
+	if (!isset($_POST['submit']) ){
+	if (!isset($_POST['username']) || $_POST['username'] == "" || !(ctype_alnum($_POST['username']))){
+		$error = true;
+		$msg[1] = "Field Missing!";
+		$msg[0] = "Please make sure your username is set and only has numbers and letters!";
+	}
+	if (!isset($_POST['password']) || $_POST['password'] == ""){
+		$error = true;
+		$msg[1] = "Field Missing!";
+		$msg[0] = "Please make sure your password is set!";
+	}
+	if (!isset($_POST['cpassword']) || $_POST['cpassword'] == ""){
+		$error = true;
+		$msg[1] = "Field Missing!";
+		$msg[0] = "Please confirm your password!";
+	}
+	if (!isset($_POST['email']) || $_POST['email'] == ""){
+		$error = true;
+		$msg[1] = "Field Missing!";
+		$msg[0] = "Please set your Email!";
+	}
+	if (!isset($_POST['accept']) || $_POST['accept'] == ""){
+		$error = true;
+		$msg[1] = "Field Missing!";
+		$msg[0] = "Please Accept Terms and Conditions!";
+	}
+    if (!isset($_POST['nickname']) || $_POST['nickname'] == ""){
+		$error = true;
+		$msg[1] = "Field Missing!";
+		$msg[0] = "Please choose a nickname!";
+	}
+    if (!isset($_POST['dob']) || $_POST['dob'] == ""){
+		$error = true;
+		$msg[1] = "Field Missing!";
+		$msg[0] = "Please enter your Date Of Birth!";
+	}
+    if (!isset($_POST['city']) || $_POST['city'] == ""){
+		$error = true;
+		$msg[1] = "Field Missing!";
+		$msg[0] = "Please enter your city!";
+	}
+    if (!isset($_POST['zip']) || $_POST['zip'] == "" || !is_numeric($_POST['zip'])){
+		if (!is_numeric($_POST['zip'])){
+			$error = true;
+			$msg[1] = "Field Missing!";
+			$msg[0] = "Please enter a valid zip!";
+		}else{
+			$error = true;
+			$msg[1] = "Field Missing!";
+			$msg[0] = "Please enter your zip!";
+		}
+	}
+    if (!isset($_POST['facebook'])){
+	$_POST['facebook'] = "";
+	}
+    if (!isset($_POST['twitter'])){
+		$_POST['twitter'] == "";
+	}
+	if ($_POST['password'] !== $_POST['cpassword']){
+		$error = true;
+		$msg[1] = "Field Error!";
+		$msg[0] = "Your Passwords Dont Match!";
+	}
+	if ($error == false){
 		$username = $_POST['username'];
 		$password = md5($_POST['password']);
 		$email = $_POST['email'];
@@ -23,23 +76,8 @@
 		
 		mysql_query("INSERT INTO profile(username, password, email, nickname, dob, city, zip, facebook, twitter,picture) VALUES('$username', '$password', '$email', '$nickname', '$dob', '$city', '$zip', '$facebook', '$twitter', '/social/img/faceless.jpg')");
 		header('Location: confirm.php');
-		}else{
-		echo ("YOUR PASSWORDS DONT MATCH!!!");
-		}
-		
-	}else{
-		echo ("<script>alert('Please accept the Terms and Conditions')</script>");
 	}
 	}
-	}
-	}
-	}
-    }
-    }
-    }
-    }
-    }
-    }
 
 ?>
 
@@ -55,6 +93,8 @@
 
     <title> GEM Sign-Up</title>
 
+	<link rel="stylesheet" href="plugins/toastr/toastr.css">
+	
     <!-- page level plugin styles -->
     <link rel="stylesheet" href="plugins/stepy/jquery.stepy.css">
     <link rel="stylesheet" href="plugins/chosen/chosen.min.css">
@@ -275,6 +315,27 @@
     <!-- page script -->
     <script src="js/form-wizard.js"></script>
     <!-- /page script -->
+	
+	 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<!--<script src="plugins/toastr/toastr.min.js"></script>-->
+</script>
+	<?php if ($error == true){?>
+				<script>
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "positionClass": "toast-top-full-width",
+  "showDuration": "500",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+toastr["error"]("<?php echo $msg[0]; ?>", "<?php echo $msg[1]; ?>");</script>
+	<?php }?>
 </body>
 
 </html>
