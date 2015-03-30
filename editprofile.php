@@ -58,7 +58,6 @@ if (isset($_POST['submit']) ){
 		$imagename = $imagename1[0].rand(0,999999).strtotime('now');
 		$target_file = $target_dir . $imagename;
 		$imageFileType = pathinfo($_FILES['files']['name'],PATHINFO_EXTENSION);
-		ECHO $target_file.".$imageFileType" . "--" . $_FILES["files"]["tmp_name"];
 		// Check if image file is a actual image or fake image
 		$check = getimagesize($_FILES['files']['tmp_name']);
 		
@@ -68,7 +67,7 @@ if (isset($_POST['submit']) ){
 			$uploadOk = 0;
 		}
 		// Check file size
-		if ($_FILES["files"]["size"] > 50000000) {//50 MBs
+		if ($_FILES["files"]["size"] > 5000000) {//5 MBs
 			$error = "Sorry, your file is too large.";
 			$uploadOk = 0;
 		}
@@ -84,7 +83,6 @@ if (isset($_POST['submit']) ){
 		
 		
 		if($check !== false && $uploadOk == 1) {
-		echo "<br>".$_FILES["files"]["tmp_name"].".".$b . "-----" . $target_file.".".$imageFileType;
 			if (move_uploaded_file($_FILES["files"]["tmp_name"], $target_file.".".$imageFileType)) {
 				$URLL = "/social/".$target_file.".".$imageFileType;
 				//echo "##".$my_id;
